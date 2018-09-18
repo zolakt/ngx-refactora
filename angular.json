@@ -145,6 +145,206 @@
           }
         }
       }
+    },
+    "@ngx-refactora/auth": {
+      "root": "projects/ngx-refactora/auth",
+      "sourceRoot": "projects/ngx-refactora/auth/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngx-refactora/auth/tsconfig.lib.json",
+            "project": "projects/ngx-refactora/auth/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "projects/ngx-refactora/auth/ng-package.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-refactora/auth/src/test.ts",
+            "tsConfig": "projects/ngx-refactora/auth/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-refactora/auth/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-refactora/auth/tsconfig.lib.json",
+              "projects/ngx-refactora/auth/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "@ngx-refactora/auth-provider-auth0": {
+      "root": "projects/ngx-refactora/auth-provider-auth0",
+      "sourceRoot": "projects/ngx-refactora/auth-provider-auth0/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngx-refactora/auth-provider-auth0/tsconfig.lib.json",
+            "project": "projects/ngx-refactora/auth-provider-auth0/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "projects/ngx-refactora/auth-provider-auth0/ng-package.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-refactora/auth-provider-auth0/src/test.ts",
+            "tsConfig": "projects/ngx-refactora/auth-provider-auth0/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-refactora/auth-provider-auth0/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-refactora/auth-provider-auth0/tsconfig.lib.json",
+              "projects/ngx-refactora/auth-provider-auth0/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "@ngx-refactora/auth-guards": {
+      "root": "projects/ngx-refactora/auth-guards",
+      "sourceRoot": "projects/ngx-refactora/auth-guards/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngx-refactora/auth-guards/tsconfig.lib.json",
+            "project": "projects/ngx-refactora/auth-guards/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "projects/ngx-refactora/auth-guards/ng-package.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-refactora/auth-guards/src/test.ts",
+            "tsConfig": "projects/ngx-refactora/auth-guards/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-refactora/auth-guards/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-refactora/auth-guards/tsconfig.lib.json",
+              "projects/ngx-refactora/auth-guards/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "@ngx-refactora/auth-interceptors": {
+      "root": "projects/ngx-refactora/auth-interceptors",
+      "sourceRoot": "projects/ngx-refactora/auth-interceptors/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngx-refactora/auth-interceptors/tsconfig.lib.json",
+            "project": "projects/ngx-refactora/auth-interceptors/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "projects/ngx-refactora/auth-interceptors/ng-package.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-refactora/auth-interceptors/src/test.ts",
+            "tsConfig": "projects/ngx-refactora/auth-interceptors/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-refactora/auth-interceptors/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-refactora/auth-interceptors/tsconfig.lib.json",
+              "projects/ngx-refactora/auth-interceptors/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "@ngx-refactora/auth-provider-oidc": {
+      "root": "projects/ngx-refactora/auth-provider-oidc",
+      "sourceRoot": "projects/ngx-refactora/auth-provider-oidc/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngx-refactora/auth-provider-oidc/tsconfig.lib.json",
+            "project": "projects/ngx-refactora/auth-provider-oidc/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "projects/ngx-refactora/auth-provider-oidc/ng-package.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-refactora/auth-provider-oidc/src/test.ts",
+            "tsConfig": "projects/ngx-refactora/auth-provider-oidc/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-refactora/auth-provider-oidc/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-refactora/auth-provider-oidc/tsconfig.lib.json",
+              "projects/ngx-refactora/auth-provider-oidc/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "ngx-refactora"

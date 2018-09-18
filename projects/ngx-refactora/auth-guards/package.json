@@ -1,0 +1,11 @@
+{
+	"name": "@ngx-refactora/auth-guards",
+	"version": "1.0.0",
+	"peerDependencies": {
+		"@angular/common": "^6.0.0-rc.0 || ^6.0.0",
+		"@angular/core": "^6.0.0-rc.0 || ^6.0.0",
+		"@angular/router": "^6.0.0-rc.0 || ^6.0.0",
+		"@ngx-refactora/auth": "^1.0.0",
+		"rxjs": "^6.1.0"
+	}
+}
