@@ -5,6 +5,7 @@
 		"@angular/common": "^6.0.0-rc.0 || ^6.0.0",
 		"@angular/core": "^6.0.0-rc.0 || ^6.0.0",
 		"@ngx-refactora/auth": "^1.0.0",
+		"@ngx-refactora/common": "^1.0.0",
 		"@types/auth0-js": "^8.11.2",
 		"auth0-js": "^9.5.1",
 		"rxjs": "^6.1.0"

@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { AuthProviderInterface } from '../interfaces/auth.provider.interface';
+import { AuthProvider } from '../interfaces/auth.provider';
 
 @Injectable()
-export class FakeAuthProvider implements AuthProviderInterface {
+export class FakeAuthProvider implements AuthProvider {
 	getIsAuthorized(): Observable<boolean> {
 		return of(false);
 	}
 
-	getToken(): any {
+	getToken(type?: string): any {
 		return null;
 	}
 

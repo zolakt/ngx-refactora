@@ -1,11 +1,11 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { OidcSecurityService, OidcConfigService, OpenIDImplicitFlowConfiguration, AuthWellKnownEndpoints } from 'angular-auth-oidc-client';
-import { AuthProviderInterface } from '@ngx-refactora/auth';
+import { AuthProvider } from '@ngx-refactora/auth';
 
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class OidcAuthProvider implements AuthProviderInterface, OnDestroy {
+export class OidcAuthProvider implements AuthProvider, OnDestroy {
 	constructor(
 		private oidcSecurityService: OidcSecurityService,
 		private oidcConfigService: OidcConfigService

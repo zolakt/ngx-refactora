@@ -3,16 +3,16 @@ import { Observable, of } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 
 import { AuthService } from './auth.service';
-import { AuthProviderInterface } from '../interfaces/auth.provider.interface';
-import { UserServiceInterface } from '../interfaces/user.service.interface';
-import { PermissionServiceInterface } from '../interfaces/permission.service.interface';
+import { AuthProvider } from '../interfaces/auth.provider';
+import { UserService } from '../interfaces/user.service';
+import { PermissionService } from '../interfaces/permission.service';
 
 @Injectable()
 export class AuthServiceExt extends AuthService {
 	constructor(
-		authProvider: AuthProviderInterface,
-		protected userService: UserServiceInterface<any>,
-		@Optional() protected permissionService: PermissionServiceInterface<any>
+		authProvider: AuthProvider,
+		protected userService: UserService<any>,
+		@Optional() protected permissionService: PermissionService<any>
 	) {
 		super(authProvider);
 	}

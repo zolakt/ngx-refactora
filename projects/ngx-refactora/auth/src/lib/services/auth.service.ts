@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthProviderInterface } from '../interfaces/auth.provider.interface';
+import { AuthProvider } from '../interfaces/auth.provider';
 
 @Injectable()
 export class AuthService {
-	constructor(protected authProvider: AuthProviderInterface) {}
+	constructor(protected authProvider: AuthProvider) {}
 
 	getIsAuthorized(): Observable<boolean> {
 		return this.authProvider.getIsAuthorized();

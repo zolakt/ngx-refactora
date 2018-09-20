@@ -345,6 +345,86 @@
           }
         }
       }
+    },
+    "@ngx-refactora/common": {
+      "root": "projects/ngx-refactora/common",
+      "sourceRoot": "projects/ngx-refactora/common/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngx-refactora/common/tsconfig.lib.json",
+            "project": "projects/ngx-refactora/common/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "projects/ngx-refactora/common/ng-package.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-refactora/common/src/test.ts",
+            "tsConfig": "projects/ngx-refactora/common/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-refactora/common/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-refactora/common/tsconfig.lib.json",
+              "projects/ngx-refactora/common/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "@ngx-refactora/cart": {
+      "root": "projects/ngx-refactora/cart",
+      "sourceRoot": "projects/ngx-refactora/cart/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngx-refactora/cart/tsconfig.lib.json",
+            "project": "projects/ngx-refactora/cart/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "projects/ngx-refactora/cart/ng-package.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-refactora/cart/src/test.ts",
+            "tsConfig": "projects/ngx-refactora/cart/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-refactora/cart/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-refactora/cart/tsconfig.lib.json",
+              "projects/ngx-refactora/cart/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "ngx-refactora"

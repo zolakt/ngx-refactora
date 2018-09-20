@@ -1,35 +1,40 @@
-import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
-import { APP_BASE_HREF, isPlatformBrowser } from '@angular/common';
+import { Injectable, Inject } from '@angular/core';
+import { APP_BASE_HREF } from '@angular/common';
 import { WebAuth } from 'auth0-js';
-import { AuthProviderInterface } from '@ngx-refactora/auth';
+import { AuthProvider, AUTH_CONFIG, RefactoraAuthConfig } from '@ngx-refactora/auth';
 
 import { Subscription, ReplaySubject, Observable, of, timer } from 'rxjs';
 import { skip, mergeMap, distinctUntilChanged } from 'rxjs/operators';
+import { StorageService } from '@ngx-refactora/common/public_api';
+
+export interface RefactoraAuth0Config extends RefactoraAuthConfig {
+	externalTokenName?: string;
+	externalTokenNamespace?: string;
+}
 
 @Injectable()
-export class Auth0AuthProvider implements AuthProviderInterface {
+export class Auth0AuthProvider implements AuthProvider {
 	private auth: WebAuth;
 	private refreshSubscription: Subscription;
-	private redirectPath: string;
 
 	private userDataSubject$: ReplaySubject<any> = new ReplaySubject(1);
 	private userDataInitialized: boolean;
 
 	constructor(
-		@Inject(PLATFORM_ID) private platformId: Object,
+		@Inject(AUTH_CONFIG) private config: RefactoraAuth0Config,
 		@Inject(APP_BASE_HREF) originUrl: string,
-		@Inject('APP_CONFIG') appConfig: any
+		private storage: StorageService
 	) {
-		this.redirectPath = appConfig.authRedirectPath ? appConfig.authRedirectPath : '/admin';
-		const redirectUrl = originUrl.replace(/\/$/, '') + this.redirectPath;
+		const redirectPath = config.redirectUri ? config.redirectUri : '/';
+		const redirectUrl = originUrl.replace(/\/$/, '') + redirectPath;
 
 		this.auth = new WebAuth({
-			clientID: appConfig.clientId,
-			domain: appConfig.identityUrl,
-			responseType: appConfig.clientResponseType,
-			audience: appConfig.audience,
+			clientID: config.clientId,
+			domain: config.identityUrl,
+			responseType: config.responseType,
+			audience: config.audience,
 			redirectUri: redirectUrl,
-			scope: appConfig.clientScope
+			scope: config.scope
 		});
 	}
 
@@ -37,12 +42,20 @@ export class Auth0AuthProvider implements AuthProviderInterface {
 		return of(this.isAuthenticated());
 	}
 
-	getToken(): any {
-		return this.getFromStorage('access_token');
+	getToken(type?: string): any {
+		const tokenKey = (type && type === this.config.externalTokenName) ?
+			this.config.externalTokenName :
+			(type && type === 'id_token') ? 'id_token' : 'access_token';
+
+		return this.storage.get(tokenKey);
+	}
+
+	private getExpiration(): string {
+		return this.storage.get('expires_at');
 	}
 
 	getUserData(refresh?: boolean): Observable<any> {
-		const accessToken = this.getFromStorage('access_token');
+		const accessToken = this.getToken();
 		if (!accessToken || !this.isAuthenticated()) {
 			return of(null);
 		}
@@ -70,14 +83,12 @@ export class Auth0AuthProvider implements AuthProviderInterface {
 	}
 
 	logout(): void {
-		this.removeFromStorage('access_token');
-		this.removeFromStorage('id_token');
-		this.removeFromStorage('expires_at');
+		this.clearStorage();
 		this.unscheduleRenewal();
 	}
 
 	private isAuthenticated(): boolean {
-		const expiresAt = '' + this.getFromStorage('expires_at');
+		const expiresAt = '' + this.getExpiration();
 		return new Date().getTime() < JSON.parse(expiresAt);
 	}
 
@@ -85,16 +96,8 @@ export class Auth0AuthProvider implements AuthProviderInterface {
 		this.auth.parseHash((err, authResult) => {
 			if (authResult && authResult.accessToken && authResult.idToken) {
 				this.setSession(authResult);
-				location.replace(this.redirectPath);
 			}
 		});
-	}
-
-	private setSession(authResult: any): void {
-		const expiresAt = JSON.stringify(authResult.expiresIn * 1000 + new Date().getTime());
-		this.saveToStorage('access_token', authResult.accessToken);
-		this.saveToStorage('id_token', authResult.idToken);
-		this.saveToStorage('expires_at', expiresAt);
 	}
 
 	private scheduleRenewal(): void {
@@ -104,7 +107,7 @@ export class Auth0AuthProvider implements AuthProviderInterface {
 
 		this.unscheduleRenewal();
 
-		const expiresAt = JSON.parse('' + this.getFromStorage('expires_at'));
+		const expiresAt = JSON.parse('' + this.getExpiration());
 
 		const source = of(expiresAt).pipe(
 			mergeMap(exp => {
@@ -133,19 +136,26 @@ export class Auth0AuthProvider implements AuthProviderInterface {
 		}
 	}
 
-	private getFromStorage(key: string): string {
-		return isPlatformBrowser(this.platformId) ? localStorage.getItem(key) : null;
-	}
+	private setSession(authResult: any): void {
+		const expiresAt = JSON.stringify(authResult.expiresIn * 1000 + new Date().getTime());
+		this.storage.set('access_token', authResult.accessToken);
+		this.storage.set('id_token', authResult.idToken);
+		this.storage.set('expires_at', expiresAt);
 
-	private saveToStorage(key: string, value: string): void {
-		if (isPlatformBrowser(this.platformId)) {
-			localStorage.setItem(key, value);
+		if (this.config.externalTokenName && authResult.idTokenPayload) {
+			const extTokenPath = this.config.externalTokenNamespace + this.config.externalTokenName;
+			const token = authResult.idTokenPayload[extTokenPath] || null;
+			this.storage.set(this.config.externalTokenName, token);
 		}
 	}
 
-	private removeFromStorage(key: string): void {
-		if (isPlatformBrowser(this.platformId)) {
-			localStorage.removeItem(key);
+	private clearStorage(): void {
+		this.storage.delete('access_token');
+		this.storage.delete('id_token');
+		this.storage.delete('expires_at');
+
+		if (this.config.externalTokenName) {
+			this.storage.delete(this.config.externalTokenName);
 		}
 	}
 }

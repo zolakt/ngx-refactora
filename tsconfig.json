@@ -47,6 +47,18 @@
       ],
       "@ngx-refactora/auth-provider-oidc/*": [
         "dist/ngx-refactora/auth-provider-oidc/*"
+      ],
+      "@ngx-refactora/common": [
+        "dist/ngx-refactora/common"
+      ],
+      "@ngx-refactora/common/*": [
+        "dist/ngx-refactora/common/*"
+      ],
+      "@ngx-refactora/cart": [
+        "dist/ngx-refactora/cart"
+      ],
+      "@ngx-refactora/cart/*": [
+        "dist/ngx-refactora/cart/*"
       ]
     }
   }

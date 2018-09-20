@@ -4,8 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
+    "build": "ng build --prod",
+    "build:auth": "npm run build @ngx-refactora/auth && npm run build @ngx-refactora/auth-guards && npm run build @ngx-refactora/auth-interceptors && npm run build @ngx-refactora/auth-provider-auth0 && npm run build @ngx-refactora/auth-provider-oidc",
+	"build:all": "npm run build @ngx-refactora/common && npm run build @ngx-refactora/cart && npm run build:auth",
+	"test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },

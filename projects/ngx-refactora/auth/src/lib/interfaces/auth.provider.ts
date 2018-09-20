@@ -1,8 +1,8 @@
 import { Observable } from 'rxjs';
 
-export abstract class AuthProviderInterface {
+export abstract class AuthProvider {
 	abstract getIsAuthorized(): Observable<boolean>;
-	abstract getToken(): any;
+	abstract getToken(type?: string): any;
 	abstract getUserData(refresh?: boolean): Observable<any>;
 	abstract login(): any;
 	abstract logout(): any;
